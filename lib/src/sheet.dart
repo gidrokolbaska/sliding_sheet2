@@ -1093,14 +1093,23 @@ class _SlidingSheetState extends State<SlidingSheet>
 
         final backDrop = IgnorePointer(
           ignoring: opacity < 0.05,
-          child: Opacity(
+          child:
+          Opacity(
             opacity: opacity,
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: widget.backdropColor,
-            ),
+            child: BackdropFilter(filter: ImageFilter.blur(sigmaX:opacity*5 ,sigmaY: opacity*5),child:Container(
+                width: double.infinity,
+                height: double.infinity,
+                color: widget.backdropColor,
+              ) ,),
           ),
+          //  Opacity(
+          //   opacity: opacity,
+          //   child: Container(
+          //     width: double.infinity,
+          //     height: double.infinity,
+          //     color: widget.backdropColor,
+          //   ),
+          // ),
         );
 
         void onTap() => widget.isDismissable
