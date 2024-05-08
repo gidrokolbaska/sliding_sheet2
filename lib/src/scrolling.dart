@@ -333,6 +333,7 @@ class _SlidingSheetScrollPosition extends ScrollPositionWithSingleContext {
     snap ? goSnapped(velocity) : goUnsnapped(velocity);
   }
 
+  bool isAlreadyPopping = false;
   void goSnapped(double velocity, {double? snap}) {
     velocity = velocity.abs();
     const flingThreshold = 1700;
@@ -344,6 +345,7 @@ class _SlidingSheetScrollPosition extends ScrollPositionWithSingleContext {
       if (!isMovingUp) {
         if (isDismissable) {
           // Pop from the navigator on down fling.
+          isAlreadyPopping = true;
           onPop(velocity);
         } else {
           snapTo(minExtent);
@@ -391,11 +393,12 @@ class _SlidingSheetScrollPosition extends ScrollPositionWithSingleContext {
       if (!isDismissable) {
         targetSnap = math.max(minExtent, targetSnap!);
       }
-
-      if (targetSnap == 0.0) {
-        onPop(velocity);
-      } else if (targetSnap != extent.currentExtent && currentExtent > 0) {
-        snapTo(targetSnap!.clamp(minExtent, maxExtent));
+      if (!isAlreadyPopping) {
+        if (targetSnap == 0.0) {
+          onPop(velocity);
+        } else if (targetSnap != extent.currentExtent && currentExtent > 0) {
+          snapTo(targetSnap!.clamp(minExtent, maxExtent));
+        }
       }
     }
   }
