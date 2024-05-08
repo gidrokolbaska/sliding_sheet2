@@ -838,6 +838,7 @@ class _SlidingSheetState extends State<SlidingSheet>
           // Hide the sheet for the first frame until the extents are
           // correctly measured.
           child: Stack(
+            fit: StackFit.expand,
             children: <Widget>[
               _buildBackdrop(),
               _buildSheet(),
