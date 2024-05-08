@@ -1096,7 +1096,7 @@ class _SlidingSheetState extends State<SlidingSheet>
           child:
           Opacity(
             opacity: opacity,
-            child: BackdropFilter(filter: ImageFilter.blur(sigmaX:20 ,sigmaY: 20),child:Container(
+            child: BackdropFilter(filter: ImageFilter.blur(sigmaX:opacity*5 ,sigmaY: opacity*5),child:Container(
                 width: double.infinity,
                 height: double.infinity,
                 color: widget.backdropColor,
